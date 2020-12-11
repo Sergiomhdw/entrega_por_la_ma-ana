@@ -37,5 +37,5 @@ Route::get('comments/create/{image}/{user}',[App\Http\Controllers\CommentControl
 Route::post('comentarios',[App\Http\Controllers\CommentController::class, 'store'])->name('comments.store');
 
 
-Route::post('subir',[App\Http\Controllers\ImageController::class, 'create'])->name('image.create');
-Route::post('subirfoto',[App\Http\Controllers\ImageController::class, 'store'])->name('image.store');
+Route::post('image/subir/{user}',[App\Http\Controllers\ImageController::class,'create'])->name('image.create');
+Route::post('image',[App\Http\Controllers\ImageController::class, 'store'])->name('image.store');

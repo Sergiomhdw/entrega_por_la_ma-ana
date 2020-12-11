@@ -37,24 +37,23 @@ class ImageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Image $image)
     {
-        // $validator_url = Validator::make($request->all(), [
-        //     'image_path' => 'url'
-        // ]);
+       $validator_des = Validator::make($request->all(), [
+        'url' => 'required',
+        'contain' => 'required',
+        'usuario' => 'required',
+    ]);
 
-        // if ($validator_url->fails()) {
-        //     return redirect('/')->withErrors($validator_url)->with('error', 'Tiene que ser una una url.');
-        // }
-        // $validator_des = Validator::make($request->all(), [
-        //     'description' => 'required'
-        // ]);
+    if ($validator_des->fails()) {
+        return redirect('/')->withErrors($validator_des)->with('error', 'Tiene que tener una descripción no vacia');
+    }
 
-        // if ($validator_des->fails()) {
-        //     return redirect('/')->withErrors($validator_des)->with('error', 'Tiene que tener una descripción no vacia');
-        // }
-        // Image::create($request->all();
-        // return redirect()->route('/')->with('success', 'Enlace creado correctamente.');
+    $image->description = $request->contain;
+    $image->image_path = $request->url;
+    $image->user_id = $request->usuario;
+    $image->save();
+    return redirect()->route('home')->with('success','Oye Buena foto esa');
         
     }
 
